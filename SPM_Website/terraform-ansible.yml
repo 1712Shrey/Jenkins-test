@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: cleaning files
+      shell: sudo rm -rf ~/Software_Project_Major
+
+    - name: pull
+      shell: sudo git clone https://github.com/Shrey-Shah-itp/SPM_Website.git
+      
+    - name: docker kill
+      shell: sudo docker stop ansapp || true && sudo docker rm ansapp || true
+    
+    - name: docker build
+      shell: sudo docker build -t spm2605/ansapp ~/Software_Project_Major/
+      
+    - name: docker run 
+      shell:  sudo docker run -it -d --name ansapp -p 3100:80 spm2605/ansapp
